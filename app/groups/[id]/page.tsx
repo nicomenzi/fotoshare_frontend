@@ -7,7 +7,7 @@ import Gallery from "../../components/Gallery";
 
 export default function GroupPage({ params }: { params: Promise<{ id: string }> }) {
   const unwrappedParams = React.use(params);
-  const { getGroupById, addImageToGroup } = useGroupContext();
+  const { getGroupById } = useGroupContext();
   const group = getGroupById(unwrappedParams.id);
   if (!group) return notFound();
 

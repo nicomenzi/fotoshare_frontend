@@ -6,7 +6,7 @@ import Gallery from "../../../../components/Gallery";
 
 export default function AlbumPage({ params }: { params: Promise<{ id: string; albumId: string }> }) {
   const unwrappedParams = React.use(params);
-  const { getGroupById, addImageToGroup } = useGroupContext();
+  const { getGroupById } = useGroupContext();
   const group = getGroupById(unwrappedParams.id);
   if (!group) return notFound();
   const album = group.albums.find((a) => a.id === unwrappedParams.albumId);

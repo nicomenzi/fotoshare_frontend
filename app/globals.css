@@ -24,3 +24,34 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+body {
+  background-color: #F2EFE7;
+  color: #006A71;
+}
+
+/* Accent utility classes */
+.text-accent {
+  color: #48A6A7;
+}
+.bg-accent {
+  background-color: #48A6A7;
+}
+.border-accent {
+  border-color: #9ACBD0;
+}
+
+/* Button styles */
+.btn-primary {
+  background-color: #48A6A7;
+  color: #fff;
+  transition: background 0.2s;
+}
+.btn-primary:hover {
+  background-color: #006A71;
+}
+
+/* Link hover */
+a:hover {
+  color: #9ACBD0;
+}

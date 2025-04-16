@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Image, User } from "../../lib/api";
+import FullImageViewer from "./FullImageViewer";
 
 interface GalleryProps {
   images: Image[];
@@ -8,6 +9,9 @@ interface GalleryProps {
 
 const Gallery: React.FC<GalleryProps> = ({ images, onAddImages }) => {
   const [selected, setSelected] = useState<Set<string>>(new Set());
+  const [viewerOpen, setViewerOpen] = useState(false);
+  const [viewerInitialIndex, setViewerInitialIndex] = useState(0);
+  const [selectMode, setSelectMode] = useState(false);
 
   const toggleSelect = (id: string) => {
     setSelected((prev) => {
@@ -71,24 +75,66 @@ const Gallery: React.FC<GalleryProps> = ({ images, onAddImages }) => {
     }
   };
 
+  const handleImageClick = (index: number, id: string) => {
+    if (selectMode) {
+      // In select mode, toggle selection
+      toggleSelect(id);
+    } else {
+      // Not in select mode, open viewer
+      setViewerInitialIndex(index);
+      setViewerOpen(true);
+    }
+  };
+  
+  const toggleSelectMode = () => {
+    if (selectMode) {
+      // If turning off select mode, clear selections
+      setSelected(new Set());
+    }
+    setSelectMode(!selectMode);
+  };
+
   return (
     <div>
-      {selected.size > 0 && (
-        <div className="mb-2 flex gap-2">
-          <button onClick={handleDelete} className="px-3 py-1 bg-red-500 text-white rounded">Delete</button>
-          <button onClick={handleDownload} className="px-3 py-1 bg-blue-500 text-white rounded">Download</button>
-        </div>
+      {viewerOpen && (
+        <FullImageViewer 
+          images={images}
+          initialIndex={viewerInitialIndex}
+          onClose={() => setViewerOpen(false)}
+        />
       )}
+      
+      <div className="mb-4 flex justify-between items-center">
+        <button 
+          onClick={toggleSelectMode}
+          className={`px-3 py-1 ${selectMode ? 'bg-gray-500' : 'bg-blue-500'} text-white rounded`}
+        >
+          {selectMode ? 'Cancel Selection' : 'Select Images'}
+        </button>
+        
+        {selected.size > 0 && (
+          <div className="flex gap-2">
+            <button onClick={handleDelete} className="px-3 py-1 bg-red-500 text-white rounded">Delete</button>
+            <button onClick={handleDownload} className="px-3 py-1 bg-blue-500 text-white rounded">Download</button>
+          </div>
+        )}
+      </div>
+      
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-        {images.map((img) => (
+        {images.map((img, index) => (
           <div
             key={img.id}
-            className={`border rounded overflow-hidden relative cursor-pointer ${selected.has(img.id) ? 'ring-4 ring-blue-400' : ''}`}
-            onClick={() => toggleSelect(img.id)}
+            className={`border rounded overflow-hidden relative cursor-pointer ${selectMode && selected.has(img.id) ? 'ring-4 ring-blue-400' : ''}`}
+            onClick={() => handleImageClick(index, img.id)}
           >
-            <img src={img.url} alt="Gallery" className="w-full h-40 object-cover" />
-            {selected.has(img.id) && (
-              <div className="absolute inset-0 bg-blue-400 bg-opacity-30 flex items-center justify-center">
+            <img 
+              src={img.url} 
+              alt="Gallery" 
+              className="w-full h-40 object-cover" 
+            />
+            
+            {selectMode && selected.has(img.id) && (
+              <div className="absolute inset-0 bg-blue-400 bg-opacity-30 flex items-center justify-center pointer-events-none">
                 <svg className="w-10 h-10 text-white" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
                 </svg>

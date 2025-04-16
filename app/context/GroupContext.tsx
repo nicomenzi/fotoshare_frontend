@@ -1,6 +1,6 @@
 "use client";
 import React, { createContext, useContext, useState, ReactNode } from "react";
-import { getGroups, getGroup, Group, User, Image } from "../../lib/api";
+import { getGroups, Group, Image } from "../../lib/api";
 
 type GroupContextType = {
   groups: Group[];

@@ -3,7 +3,6 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import { useGroupContext } from "../../context/GroupContext";
 import React from "react";
-import ImageView from "../../components/ImageView";
 import Gallery from "../../components/Gallery";
 
 export default function GroupPage({ params }: { params: Promise<{ id: string }> }) {
@@ -47,7 +46,7 @@ export default function GroupPage({ params }: { params: Promise<{ id: string }> 
       </section>
       <section className="mb-10">
         <h2 className="font-semibold mb-2">All Images</h2>
-        <Gallery images={group.images} onAddImages={handleAddImages} />
+        <Gallery images={group.images} />
       </section>
       <section>
         <h2 className="font-semibold mb-2">Members</h2>

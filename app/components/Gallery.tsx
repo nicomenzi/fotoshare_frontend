@@ -1,13 +1,12 @@
 import React, { useState } from "react";
-import { Image, User } from "../../lib/api";
+import { Image } from "../../lib/api";
 import FullImageViewer from "./FullImageViewer";
 
 interface GalleryProps {
   images: Image[];
-  onAddImages?: (files: FileList) => void;
 }
 
-const Gallery: React.FC<GalleryProps> = ({ images, onAddImages }) => {
+const Gallery: React.FC<GalleryProps> = ({ images }) => {
   const [selected, setSelected] = useState<Set<string>>(new Set());
   const [viewerOpen, setViewerOpen] = useState(false);
   const [viewerInitialIndex, setViewerInitialIndex] = useState(0);

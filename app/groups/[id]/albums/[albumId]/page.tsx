@@ -2,7 +2,6 @@
 import { notFound } from "next/navigation";
 import { useGroupContext } from "../../../../context/GroupContext";
 import React from "react";
-import ImageView from "../../../../components/ImageView";
 import Gallery from "../../../../components/Gallery";
 
 export default function AlbumPage({ params }: { params: Promise<{ id: string; albumId: string }> }) {
@@ -36,7 +35,7 @@ export default function AlbumPage({ params }: { params: Promise<{ id: string; al
       </div>
       <section>
         <h2 className="font-semibold mb-2 text-[#006A71]">Images</h2>
-        <Gallery images={images} onAddImages={handleAddImages} />
+        <Gallery images={images} />
       </section>
     </main>
   );

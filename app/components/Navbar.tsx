@@ -5,7 +5,7 @@ const Navbar = () => (
     <div className="font-bold text-lg tracking-wide text-[#F2EFE7]">FotoShare</div>
     <ul className="flex gap-6">
       <li>
-        <a href="/" className="hover:text-[#9ACBD0] transition-colors duration-200">Home</a>
+        <Link href="/" className="hover:text-[#9ACBD0] transition-colors duration-200">Home</Link>
       </li> 
     </ul>
   </nav>

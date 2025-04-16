@@ -7,7 +7,7 @@ export type Group = { id: string; name: string; users: User[]; albums: Album[]; 
 // Initial mock data
 type Data = { groups: Group[] };
 
-let data: Data = {
+const data: Data = {
   groups: [
     {
       id: '1',

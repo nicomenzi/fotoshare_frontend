@@ -13,19 +13,6 @@ export default function AlbumPage({ params }: { params: Promise<{ id: string; al
   if (!album) return notFound();
   const images = group.images.filter((img) => img.albumId === album.id);
 
-  // Handler to add images to this album
-  const handleAddImages = (files: FileList) => {
-    Array.from(files).forEach((file) => {
-      const url = URL.createObjectURL(file);
-      addImageToGroup(group.id, {
-        id: Math.random().toString(36).slice(2),
-        url,
-        uploader: group.users[0], // Demo: first user
-        albumId: album.id,
-      });
-    });
-  };
-
   return (
     <main className="max-w-2xl mx-auto py-10 px-4 bg-[#F2EFE7] min-h-screen">
       <h1 className="text-2xl font-bold mb-2 text-[#006A71]">{album.name}</h1>

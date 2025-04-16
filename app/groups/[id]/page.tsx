@@ -12,16 +12,16 @@ export default function GroupPage({ params }: { params: Promise<{ id: string }> 
   if (!group) return notFound();
 
   // Handler to add images (demo: just adds local URLs)
-  const handleAddImages = (files: FileList) => {
-    Array.from(files).forEach((file) => {
-      const url = URL.createObjectURL(file);
-      addImageToGroup(group.id, {
-        id: Math.random().toString(36).slice(2),
-        url,
-        uploader: group.users[0], // Demo: first user
-      });
-    });
-  };
+  // const handleAddImages = (files: FileList) => {
+  //   Array.from(files).forEach((file) => {
+  //     const url = URL.createObjectURL(file);
+  //     addImageToGroup(group.id, {
+  //       id: Math.random().toString(36).slice(2),
+  //       url,
+  //       uploader: group.users[0], // Demo: first user
+  //     });
+  //   });
+  // };
 
   return (
     <main className="max-w-3xl mx-auto py-10 px-4">
